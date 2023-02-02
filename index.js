@@ -14,7 +14,7 @@ const Intern = require('./lib/Intern');
 const DIST_DIR = path.resolve(__dirname, 'dist')
 const outputPath = path.join(DIST_DIR, 'index.html');
 
-const render = require('./src/page-template.js');
+const render = require('./src/template.js');
 
 const teamArr = [];
 const idArr = [];
@@ -23,7 +23,7 @@ function initApp() {
 
     function addManager() {
         console.log("Start building your team profile");
-        inquirer.createPromptModule([
+        inquirer.prompt([
             {
                 type: "input",
                 name: "managerName",
@@ -43,7 +43,7 @@ function initApp() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Please enter the managers ID."
+                    return "Please enter the managers ID.";
                 }
             },
             {
@@ -54,7 +54,7 @@ function initApp() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Email address can't be empty."
+                    return "Email address can't be empty.";
                 }
             },
             {
@@ -68,11 +68,11 @@ function initApp() {
                     if (pass) {
                         return true;
                     }
-                    return "Please enter a phone number."
+                    return "Please enter a phone number.";
                 }
             }
         ]).then(answers => {
-            const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNumber);
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
             teamArr.push(manager);
             idArr.push(answers.managerId);
             addTeam();
@@ -92,11 +92,11 @@ function initApp() {
                 ]
             }
         ]).then(userChoice => {
-            switch (userChoice.meberChoice) {
+            switch (userChoice.memberChoice) {
                 case "Engineer":
                     addEngineer();
                     break;
-                case "Inter":
+                case "Intern":
                     addIntern();
                     break;
                 default:
@@ -115,18 +115,18 @@ function initApp() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Engineers name can't be empty."
+                    return "Engineers name can't be empty.";
                 }
             },
             {
                 type: "input",
-                name: "engineersID",
+                name: "engineerId",
                 message: "What's the engineers ID?",
                 validate: answer => {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Please enter a engineers ID."
+                    return "Please enter the engineers ID.";
                 }
             },
             {
@@ -137,18 +137,7 @@ function initApp() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Email address can't be empty."
-                }
-            },
-            {
-                type: "input",
-                name: "engineerEmail",
-                message: "What's the engineers email?",
-                validate: answer => {
-                    if (answer !== "") {
-                        return true;
-                    }
-                    return "Email address can't be empty."
+                    return "Email address can't be empty.";
                 }
             },
             {
@@ -159,9 +148,80 @@ function initApp() {
                     if (answer !== "") {
                         return true;
                     }
-                    return "Please enter the engineers GitHub username."
+                    return "Please enter the engineers GitHub username.";
                 }
             }
-        ]).then
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            teamArr.push(engineer);
+            idArr.push(answers.engineerId);
+            addTeam();
+        });
     }
+
+    function addIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What's the interns name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Interns name can't be empty.";
+                }
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What's the interns ID?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter the interns ID.";
+                }
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What's the interns email?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Email address can't be empty.";
+                }
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What's the interns school?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter the interns school.";
+                }
+            },
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            teamArr.push(intern);
+            idArr.push(answers.internId);
+            addTeam();
+        });
+    }
+
+    function generateHTML() {
+        if (!fs.existsSync(DIST_DIR)) {
+            fs.mkdirSync(DIST_DIR)
+        }
+        console.log("Generating team profile...");
+        fs.writeFileSync(outputPath, render(teamArr), "utf-8");
+    }
+
+    addManager();
 }
+
+initApp();
