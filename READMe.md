@@ -26,9 +26,10 @@ THEN I am prompted to enter the intern’s name, ID, email, and school, and I am
 WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 
+
 ## Preview
+<img width="1045" alt="Screenshot 2023-02-01 at 5 18 10 PM" src="https://user-images.githubusercontent.com/112153725/216207390-cc78d068-6571-41f2-9759-f3a962519779.png">
 <img width="1512" alt="Screenshot 2023-02-01 at 5 15 08 PM" src="https://user-images.githubusercontent.com/112153725/216207052-fddbe7fa-6149-40a1-88c7-46766d212afb.png">
-<img width="1045" alt="Screenshot 2023-02-01 at 5 18 10 PM" src="https://user-images.githubusercontent.com/112153725/216207336-d1d73512-32e5-498a-9eb9-560529c8e7af.png">
 
 
 ## URL
