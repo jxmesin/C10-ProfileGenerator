@@ -27,6 +27,7 @@ WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 
 ## Preview
+<img width="1512" alt="Screenshot 2023-02-01 at 5 15 08 PM" src="https://user-images.githubusercontent.com/112153725/216207052-fddbe7fa-6149-40a1-88c7-46766d212afb.png">
 
 ## URL
 https://drive.google.com/file/d/12tQmh9ncd6xKGIVULD8_-V9lBOlakKv-/view
